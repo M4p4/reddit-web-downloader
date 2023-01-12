@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Reddit web downloader
 
-## Getting Started
+This Reddit web downloader written in Next.js is a tool that allows users to easily download images, videos, and GIFs from a specified subreddit or user by utilizing the Pushshift API.
 
-First, run the development server:
+#### How to use it?
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+You can run the program on your local machine, but it may not be able to download certain external resources because those websites block download requests coming from localhost. The best option is to open the URL on GitHub or to modify the code and host it on your own web server.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### How does it work?
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+This program will collect submissions from a specific user or subreddit and download any images, videos, or gifs that it finds. It will do this directly within your web browser. Once the program is finished, you will be given a zip file that you can download and extract to access the media files.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+#### Supported external sources
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- redgifs.com
+- imgur.com
+- gfycat.com
+- and many more...
