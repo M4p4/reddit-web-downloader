@@ -6,7 +6,10 @@ export default function Home() {
     <>
       <Head>
         <title>Reddit Web Downloader</title>
-        <meta name="description" content="Reddit Web Downloader" />
+        <meta
+          name="description"
+          content="Reddit web downloader is a tool that allows users to easily download images, videos, and GIFs from a specified subreddit or user by utilizing the Pushshift API."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -97,6 +97,10 @@ const RedditDownloader = () => {
       startErrors.push('Subreddit or User can not be empty');
     }
 
+    if (state.settings.limit < 0 || state.settings.limit > 1000) {
+      startErrors.push('Limit must be between 1 and 1000');
+    }
+
     if (startErrors.length > 0) {
       setErrors(startErrors);
       return;
