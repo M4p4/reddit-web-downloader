@@ -151,7 +151,14 @@ const useDownloader = () => {
   };
 
   const stop = () => {
-    updateState({ settings: null, isDownloading: false, zip: null });
+    updateState({
+      settings: null,
+      isDownloading: false,
+      zip: null,
+      downloadCount: 0,
+      current: 0,
+      submissions: [],
+    });
   };
 
   return {

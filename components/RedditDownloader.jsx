@@ -17,8 +17,7 @@ const initialState = {
     { name: 'Gifs', isActive: true },
   ],
   settings: {
-    fileName: '',
-    limit: '',
+    limit: 1000,
   },
 };
 
@@ -108,10 +107,16 @@ const RedditDownloader = () => {
     let data = [];
     try {
       if (mode === 'user') {
-        const res = await getUserSubmissions(state.source, 100);
+        const res = await getUserSubmissions(
+          state.source,
+          state.settings.limit
+        );
         data = res.data.data;
       } else {
-        const res = await getSubredditSubmissions(state.source, 1000);
+        const res = await getSubredditSubmissions(
+          state.source,
+          state.settings.limit
+        );
         data = res.data.data;
       }
     } catch (e) {
@@ -225,8 +230,17 @@ const RedditDownloader = () => {
             ))}
           </div>
         </div>
-        <div className="mt-10 hidden">
+        <div className="mt-10">
           <h2 className="text-xl font-bold mt-3 mb-3 text-center">Settings</h2>
+          <label className="text-slate-300">Submission limit</label>{' '}
+          <input
+            value={state.settings.limit}
+            onChange={updateInput}
+            name="settings.limit"
+            type="number"
+            placeholder="1 - 1000"
+            className="p-2 rounded-lg focus:outline-none text-slate-700 w-full mt-1"
+          />
         </div>
       </div>
       <div className="mt-10">
