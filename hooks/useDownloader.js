@@ -107,8 +107,15 @@ const useDownloader = () => {
       }
 
       if (file) {
-        const hash = await getMd5Checksum(file);
-        if (!dublicates.includes(hash)) {
+        let hash = '';
+        if (
+          isImage(submissions[current].url) ||
+          isGif(submissions[current].url) ||
+          isGifv(submissions[current].url)
+        ) {
+          hash = await getMd5Checksum(file);
+        }
+        if (hash === '' || !dublicates.includes(hash)) {
           zip.file(
             `${downloadCount + 1}_${settings.source}.${extension}`,
             file,
@@ -148,7 +155,14 @@ const useDownloader = () => {
   }, [submissions, isDownloading, current, isReady]);
 
   const downloadZip = () => {
-    updateState({ settings: null });
+    updateState({
+      settings: null,
+      downloadCount: 0,
+      isDownloading: false,
+      dublicates: [],
+      current: 0,
+      submissions: [],
+    });
     zip
       .generateAsync({
         type: 'blob',
