@@ -17,7 +17,7 @@ const initialState = {
     { name: 'Gifs', isActive: true },
   ],
   settings: {
-    limit: 1000,
+    limit: 100,
   },
 };
 

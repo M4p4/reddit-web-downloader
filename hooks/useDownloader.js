@@ -7,6 +7,7 @@ import {
   downloadAsBase64,
   downloadGfycat,
   downloadRedGifs,
+  getMd5Checksum,
   isGfycat,
   isGif,
   isGifv,
@@ -23,6 +24,7 @@ const initialState = {
   downloadCount: 0,
   settings: null,
   setIsReady: true,
+  dublicates: [],
 };
 
 const reducer = (state, updateArg) => {
@@ -51,6 +53,7 @@ const useDownloader = () => {
     zip,
     isDownloading,
     isReady,
+    dublicates,
   } = state;
 
   useEffect(() => {
@@ -60,6 +63,11 @@ const useDownloader = () => {
       let extension = '';
 
       if (!submissions[current]) {
+        updateState({ isReady: true });
+        return;
+      }
+
+      if (dublicates.includes(submissions[current].url)) {
         updateState({ isReady: true });
         return;
       }
@@ -99,11 +107,22 @@ const useDownloader = () => {
       }
 
       if (file) {
-        zip.file(`${downloadCount + 1}_${settings.source}.${extension}`, file, {
-          binary: true,
-          date: new Date(submissions[current].utc_datetime_str),
-        });
-        updateState({ downloadCount: downloadCount + 1 });
+        const hash = await getMd5Checksum(file);
+        if (!dublicates.includes(hash)) {
+          zip.file(
+            `${downloadCount + 1}_${settings.source}.${extension}`,
+            file,
+            {
+              binary: true,
+              date: new Date(submissions[current].utc_datetime_str),
+            }
+          );
+          updateState({ downloadCount: downloadCount + 1 });
+        }
+        const newDublicates = dublicates.slice();
+        newDublicates.push(submissions[current].url);
+        newDublicates.push(hash);
+        updateState({ dublicates: newDublicates });
       } else {
         console.log(submissions[current].url);
       }
@@ -112,7 +131,7 @@ const useDownloader = () => {
 
     if (!settings || submissions.length === 0 || isReady) return;
     downloadPost();
-  }, [current, settings, submissions, isReady, downloadCount, zip]);
+  }, [current, settings, submissions, isReady, downloadCount, zip, dublicates]);
 
   useEffect(() => {
     if (
@@ -145,6 +164,7 @@ const useDownloader = () => {
       settings,
       submissions,
       downloadCount: 0,
+      dublicates: [],
       current: 0,
       zip: new JSZip(),
     });
@@ -156,6 +176,7 @@ const useDownloader = () => {
       isDownloading: false,
       zip: null,
       downloadCount: 0,
+      dublicates: [],
       current: 0,
       submissions: [],
     });
