@@ -4,7 +4,7 @@ This Reddit web downloader written in Next.js is a tool that allows users to eas
 
 #### How to use it?
 
-You can run the program on your local machine, but it may not be able to download certain external resources because those websites block download requests coming from localhost. The best option is to open the URL on GitHub or to modify the code and host it on your own web server.
+You can run the program on your local machine simple fork or clone the project and start it with `npm run dev`. The best option is to open the [project url here](https://reddit-web-downloader.vercel.app) or to modify the code and host it on your own web server.
 
 #### How does it work?
 
