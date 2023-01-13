@@ -6,6 +6,7 @@ import { set, has } from 'lodash';
 import {
   downloadAsBase64,
   downloadGfycat,
+  downloadRedditFile,
   downloadRedGifs,
   getMd5Checksum,
   isGfycat,
@@ -73,32 +74,31 @@ const useDownloader = () => {
       }
 
       try {
-        if (downloadImages && isImage(submissions[current].url)) {
+        if (submissions[current].url.indexOf('//i.redd.it/') !== -1) {
+          if (
+            (downloadImages && isImage(submissions[current].url)) ||
+            (downloadVideos && isVideo(submissions[current].url)) ||
+            (downloadGifs && isGif(submissions[current].url))
+          ) {
+            file = await downloadRedditFile(submissions[current].url);
+            extension = submissions[current].url.split('.').pop();
+          }
+        } else if (downloadImages && isImage(submissions[current].url)) {
           file = await downloadAsBase64(submissions[current].url);
           extension = submissions[current].url.split('.').pop();
-        }
-
-        if (downloadVideos && isVideo(submissions[current].url)) {
+        } else if (downloadVideos && isVideo(submissions[current].url)) {
           file = await downloadAsBase64(submissions[current].url);
           extension = submissions[current].url.split('.').pop();
-        }
-
-        if (downloadGifs && isGif(submissions[current].url)) {
+        } else if (downloadGifs && isGif(submissions[current].url)) {
           file = await downloadAsBase64(submissions[current].url);
           extension = submissions[current].url.split('.').pop();
-        }
-
-        if (downloadGifs && isGifv(submissions[current].url)) {
+        } else if (downloadGifs && isGifv(submissions[current].url)) {
           file = await downloadAsBase64(submissions[current].url);
           extension = submissions[current].url.split('.').pop();
-        }
-
-        if (downloadVideos && isGfycat(submissions[current].url)) {
+        } else if (downloadVideos && isGfycat(submissions[current].url)) {
           file = await downloadGfycat(submissions[current].url);
           extension = 'mp4';
-        }
-
-        if (downloadVideos && isRedGifs(submissions[current].url)) {
+        } else if (downloadVideos && isRedGifs(submissions[current].url)) {
           file = await downloadRedGifs(submissions[current].url);
           extension = 'mp4';
         }
