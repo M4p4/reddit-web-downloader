@@ -1,5 +1,11 @@
 import axios from 'axios';
 
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+};
+
 const handler = async (req, res) => {
   try {
     if (req.method === 'GET') {
