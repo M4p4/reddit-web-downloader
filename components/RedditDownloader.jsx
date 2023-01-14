@@ -136,7 +136,7 @@ const RedditDownloader = () => {
         downloadImages: state.fileTypes[0].isActive,
         source: state.source,
       });
-    }
+    } else updateState({ isRunning: false });
   };
 
   return (
