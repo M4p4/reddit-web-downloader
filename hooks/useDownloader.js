@@ -6,8 +6,7 @@ import { set, has } from 'lodash';
 import {
   downloadAsBase64,
   downloadGfycat,
-  downloadRedditFile,
-  downloadRedGifs,
+  downloadExternalFile,
   getMd5Checksum,
   isGfycat,
   isGif,
@@ -80,7 +79,22 @@ const useDownloader = () => {
             (downloadVideos && isVideo(submissions[current].url)) ||
             (downloadGifs && isGif(submissions[current].url))
           ) {
-            file = await downloadRedditFile(submissions[current].url);
+            file = await downloadExternalFile(
+              submissions[current].url,
+              'reddit'
+            );
+            extension = submissions[current].url.split('.').pop();
+          }
+        } else if (submissions[current].url.indexOf('//i.imgur.com') !== -1) {
+          if (
+            (downloadImages && isImage(submissions[current].url)) ||
+            (downloadVideos && isVideo(submissions[current].url)) ||
+            (downloadGifs && isGif(submissions[current].url))
+          ) {
+            file = await downloadExternalFile(
+              submissions[current].url,
+              'imgur'
+            );
             extension = submissions[current].url.split('.').pop();
           }
         } else if (downloadImages && isImage(submissions[current].url)) {
@@ -99,7 +113,10 @@ const useDownloader = () => {
           file = await downloadGfycat(submissions[current].url);
           extension = 'mp4';
         } else if (downloadVideos && isRedGifs(submissions[current].url)) {
-          file = await downloadRedGifs(submissions[current].url);
+          file = await downloadExternalFile(
+            submissions[current].url,
+            'redgifs'
+          );
           extension = 'mp4';
         }
       } catch (e) {
