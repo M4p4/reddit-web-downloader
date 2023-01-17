@@ -23,11 +23,13 @@ const handler = async (req, res) => {
       };
 
       const result = await instance.get(`https://i.imgur.com/${file}`, {
-        responseType: 'stream',
+        responseType: 'arraybuffer',
         headers: headers,
       });
 
-      return res.status(200).json({ len: result.data.length });
+      return res
+        .status(200)
+        .json({ len: result.data.length, res: result.status });
     }
   } catch (e) {
     console.warn(e.message);
