@@ -1,4 +1,6 @@
 import axios from 'axios';
+import stream from 'stream';
+import { promisify } from 'util';
 
 export const config = {
   api: {
@@ -10,6 +12,7 @@ const handler = async (req, res) => {
   try {
     if (req.method === 'GET') {
       const { file } = req.query;
+      const pipeline = promisify(stream.pipeline);
 
       const instance = axios.create({
         withCredentials: true,
@@ -23,12 +26,11 @@ const handler = async (req, res) => {
       };
 
       const result = await instance.get(`https://i.imgur.com/${file}`, {
-        responseType: 'arraybuffer',
+        responseType: 'stream',
         headers: headers,
       });
 
-      res.setHeader('Content-Type', '*/*');
-      return res.status(200).send(result.data);
+      await pipeline(result.data, res);
     }
   } catch (e) {
     console.warn(e.message);
