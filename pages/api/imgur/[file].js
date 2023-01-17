@@ -1,6 +1,4 @@
 import axios from 'axios';
-import stream from 'stream';
-import { promisify } from 'util';
 
 export const config = {
   api: {
@@ -12,7 +10,6 @@ const handler = async (req, res) => {
   try {
     if (req.method === 'GET') {
       const { file } = req.query;
-      const pipeline = promisify(stream.pipeline);
 
       const instance = axios.create({
         withCredentials: true,
@@ -30,10 +27,7 @@ const handler = async (req, res) => {
         headers: headers,
       });
 
-      res.setHeader('Content-Type', 'video/mp4');
-      res.setHeader('Content-Disposition', 'attachment; filename=test.mp4');
-
-      await pipeline(result.data, res);
+      return res.status(200).send(result.data);
     }
   } catch (e) {
     console.warn(e.message);
