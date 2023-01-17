@@ -30,6 +30,9 @@ const handler = async (req, res) => {
         headers: headers,
       });
 
+      res.setHeader('Content-Type', 'video/mp4');
+      res.setHeader('Content-Disposition', 'attachment; filename=test.mp4');
+
       await pipeline(result.data, res);
     }
   } catch (e) {
