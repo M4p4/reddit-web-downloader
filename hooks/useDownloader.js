@@ -77,7 +77,8 @@ const useDownloader = () => {
           if (
             (downloadImages && isImage(submissions[current].url)) ||
             (downloadVideos && isVideo(submissions[current].url)) ||
-            (downloadGifs && isGif(submissions[current].url))
+            (downloadGifs && isGif(submissions[current].url)) ||
+            (downloadGifs && isGifv(submissions[current].url))
           ) {
             file = await downloadExternalFile(
               submissions[current].url,
@@ -89,7 +90,8 @@ const useDownloader = () => {
           if (
             (downloadImages && isImage(submissions[current].url)) ||
             (downloadVideos && isVideo(submissions[current].url)) ||
-            (downloadGifs && isGif(submissions[current].url))
+            (downloadGifs && isGif(submissions[current].url)) ||
+            (downloadGifs && isGifv(submissions[current].url))
           ) {
             file = await downloadExternalFile(
               submissions[current].url,
