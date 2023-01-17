@@ -23,7 +23,7 @@ const handler = async (req, res) => {
       };
 
       const result = await instance.get(`https://i.imgur.com/${file}`, {
-        responseType: 'stream',
+        responseType: 'arraybuffer',
         headers: headers,
       });
 
