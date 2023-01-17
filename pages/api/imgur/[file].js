@@ -26,8 +26,9 @@ const handler = async (req, res) => {
         responseType: 'arraybuffer',
         headers: headers,
       });
-
-      return res.status(200).send(result.data);
+      console.log(result);
+      return res.status(200).json({ message: 'download done' });
+      //return res.status(200).send(result.data);
     }
   } catch (e) {
     console.warn(e.message);
