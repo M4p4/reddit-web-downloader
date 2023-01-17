@@ -27,7 +27,7 @@ const handler = async (req, res) => {
         headers: headers,
       });
 
-      return res.status(200).send(result.data);
+      return res.status(200).json({ len: result.data.length });
     }
   } catch (e) {
     console.warn(e.message);
