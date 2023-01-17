@@ -72,6 +72,8 @@ const useDownloader = () => {
         return;
       }
 
+      console.log(current, submissions[current].url);
+
       try {
         if (submissions[current].url.indexOf('//i.redd.it/') !== -1) {
           if (
@@ -94,10 +96,13 @@ const useDownloader = () => {
             (downloadGifs && isGifv(submissions[current].url))
           ) {
             file = await downloadExternalFile(
-              submissions[current].url,
+              submissions[current].url.replace('.gifv', '.mp4'),
               'imgur'
             );
-            extension = submissions[current].url.split('.').pop();
+            extension = submissions[current].url
+              .replace('.gifv', '.mp4')
+              .split('.')
+              .pop();
           }
         } else if (downloadImages && isImage(submissions[current].url)) {
           file = await downloadAsBase64(submissions[current].url);
