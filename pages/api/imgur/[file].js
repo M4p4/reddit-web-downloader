@@ -27,7 +27,10 @@ const handler = async (req, res) => {
         headers: headers,
       });
       console.log(result);
-      return res.status(200).json({ message: 'download done' });
+      result.data;
+      return res
+        .status(200)
+        .json({ message: 'download done', data: result.data });
       //return res.status(200).send(result.data);
     }
   } catch (e) {
