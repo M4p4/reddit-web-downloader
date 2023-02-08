@@ -143,7 +143,7 @@ const RedditDownloader = () => {
     <>
       <div className="relative">
         {isRunning ? (
-          <div className="absolute w-full h-full bg-slate-900 bg-opacity-50 z-30">
+          <div className="absolute w-full h-full bg-slate-800 bg-opacity-50 z-30">
             <div className="flex justify-center items-center h-full">
               <ArrowPathIcon className="w-12 h-12 animate-spin" />
             </div>
@@ -163,9 +163,9 @@ const RedditDownloader = () => {
               }}
               className={classNames(
                 state.mode === 'subreddit'
-                  ? 'bg-sky-500 border-sky-600'
-                  : 'bg-sky-600 border-sky-700',
-                ' border p-2 rounded-lg w-full text-center font-semibold hover:bg-sky-500 cursor-pointer'
+                  ? 'bg-pink-700 border-pink-800'
+                  : 'bg-pink-600 border-pink-700',
+                'border p-2 rounded-lg w-full text-center font-semibold hover:bg-pink-700 cursor-pointer'
               )}
             >
               Subreddit
@@ -179,9 +179,9 @@ const RedditDownloader = () => {
               }}
               className={classNames(
                 state.mode === 'user'
-                  ? 'bg-sky-500 border-sky-600'
-                  : 'bg-sky-600 border-sky-700',
-                'border-sky-700 border p-2 rounded-lg w-full text-center font-semibold hover:bg-sky-500 cursor-pointer'
+                  ? 'bg-pink-700 border-pink-800'
+                  : 'bg-pink-600 border-pink-700',
+                'border p-2 rounded-lg w-full text-center font-semibold hover:bg-pink-700 cursor-pointer'
               )}
             >
               User
@@ -199,7 +199,7 @@ const RedditDownloader = () => {
               name="source"
               type="text"
               placeholder={state.mode === 'user' ? 'username' : 'subreddit'}
-              className="p-2 rounded-lg focus:outline-none text-slate-700 w-full md:w-1/2"
+              className="p-2 rounded-lg focus:outline-none text-slate-200 w-full md:w-1/2 bg-slate-700"
             />
           </div>
         </div>
@@ -211,7 +211,7 @@ const RedditDownloader = () => {
             {state.fileTypes.map((fileType, i) => (
               <div
                 key={i}
-                className="border-sky-700 border-2 rounded-lg flex items-center p-4"
+                className="border-pink-700 border-2 rounded-lg flex items-center p-4"
               >
                 <label className="relative inline-flex items-center mx-auto cursor-pointer">
                   <input
@@ -225,7 +225,7 @@ const RedditDownloader = () => {
                       updateState({ ...state, fileTypes: typeCopy });
                     }}
                   />
-                  <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sky-600"></div>
+                  <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
                   <span className="ml-3 text-sm font-medium text-slate-200">
                     {fileType.name}
                   </span>
@@ -236,20 +236,22 @@ const RedditDownloader = () => {
         </div>
         <div className="mt-10">
           <h2 className="text-xl font-bold mt-3 mb-3 text-center">Settings</h2>
-          <label className="text-slate-300">Submission limit</label>{' '}
+          <label className="text-slate-300">
+            Submission limit <span className="text-xs">(1000 maximum)</span>
+          </label>
           <input
             value={state.settings.limit}
             onChange={updateInput}
             name="settings.limit"
             type="number"
             placeholder="1 - 1000"
-            className="p-2 rounded-lg focus:outline-none text-slate-700 w-full mt-1"
+            className="p-2 rounded-lg focus:outline-none text-slate-200 w-full mt-1 bg-slate-700"
           />
         </div>
       </div>
       <div className="mt-10">
         {errors.length > 0 ? (
-          <div className="text-center text-red-500 text-sm font-semibold mb-5">
+          <div className="text-center text-red-600 text-sm font-semibold mb-5">
             <h3 className="font-bold text-lg">
               There{' '}
               {errors.length === 1
@@ -261,7 +263,7 @@ const RedditDownloader = () => {
             ))}
           </div>
         ) : null}
-        <div className="border-2 border-slate-800 rounded-lg p-3">
+        <div className="border-2 border-slate-800 rounded-lg py-3">
           <div className="font-bold">
             Crawling post {downloader.current} of {downloader.total}
           </div>
@@ -271,14 +273,14 @@ const RedditDownloader = () => {
           {isRunning ? (
             <div
               onClick={stopDownload}
-              className="p-2 bg-red-600 text-center rounded-lg hover:bg-red-500 cursor-pointer"
+              className="p-2 bg-red-600 text-center rounded-lg hover:bg-red-700 cursor-pointer"
             >
               Cancel
             </div>
           ) : (
             <div
               onClick={startDownload}
-              className="p-2 bg-sky-600 text-center rounded-lg hover:bg-sky-500 cursor-pointer"
+              className="p-2 bg-pink-600 text-center rounded-lg hover:bg-pink-700 cursor-pointer"
             >
               Download
             </div>
